@@ -1,7 +1,3 @@
-
-function getCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
-}
 fetch('products.json')
   .then(response => response.json())
   .then(data => {
@@ -15,13 +11,20 @@ fetch('products.json')
         <img src="${product.image}" alt="${product.name}">
         <h3>${product.name}</h3>
         <p>${product.description}</p>
-        <strong>${product.price}</strong>
+        <strong>${product.price}</strong><br/>
+        <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
       `;
 
       container.appendChild(productDiv);
     });
-  })
-  .catch(error => console.error('Error loading products:', error));
+  });
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(product);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${product.name} added to cart!`);
+}
 
 function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
