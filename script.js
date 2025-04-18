@@ -1,3 +1,7 @@
+
+function getCart() {
+  return JSON.parse(localStorage.getItem('cart')) || [];
+}
 fetch('products.json')
   .then(response => response.json())
   .then(data => {
@@ -18,9 +22,6 @@ fetch('products.json')
     });
   })
   .catch(error => console.error('Error loading products:', error));
-function getCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
-}
 
 function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
